@@ -3,6 +3,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
+            android:checked="true"
             android:title="CC Talk"/>
         <item
             android:id="@+id/nav_messages"
@@ -12,6 +13,15 @@
             android:title="Words"/>
         <item
             android:id="@+id/nav_discussion"
+            android:title="Big HJ"/>
+        <item
+            android:id="@+id/nav_discussion2"
+            android:title="Big HJ"/>
+        <item
+            android:id="@+id/nav_discussion3"
+            android:title="Big HJ"/>
+        <item
+            android:id="@+id/nav_discussion4"
             android:title="Big HJ"/>
     </group>
 
