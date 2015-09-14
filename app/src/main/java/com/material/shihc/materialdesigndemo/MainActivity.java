@@ -42,28 +42,28 @@ public class MainActivity extends AppCompatActivity {
 
     private void initToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.id_toolbar);
-        mToolbar.setTitle("MaterialDesignDemo");// 标题的文字需在setSupportActionBar之前，不然会无效
+        mToolbar.setTitle("首页");// 标题的文字需在setSupportActionBar之前，不然会无效
         // toolbar.setSubtitle("副标题");
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         /* 这些通过ActionBar来设置也是一样的，注意要在setSupportActionBar(toolbar);之后，不然就报错了 */
         // getSupportActionBar().setTitle("标题");
         // getSupportActionBar().setSubtitle("副标题");
         // getSupportActionBar().setLogo(R.drawable.ic_launcher);
 
-        /* 菜单的监听可以在toolbar里设置，也可以像ActionBar那样，通过Activity的onOptionsItemSelected回调方法来处理 */
-//        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                return false;
-//            }
-//        });
+        /* 菜单的监听可以在toolbar里设置，也可以像ActionBar那样，通过Activity的onOptionsItemSelected回调方法来处理
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return false;
+            }
+        });*/
     }
 
     private void initNavigation() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.dl_main_drawer);
-        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,mToolbar, 0, 0);
+        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, mToolbar, 0, 0);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mNavigationView = (NavigationView) findViewById(R.id.nv_main_navigation);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
