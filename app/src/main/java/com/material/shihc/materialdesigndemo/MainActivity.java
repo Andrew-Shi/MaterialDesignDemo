@@ -2,6 +2,11 @@ package com.material.shihc.materialdesigndemo;
 
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +16,10 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,14 +31,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private NavigationView mNavigationView;
 
-    private Button mBtnShowSnackBar;
-
     private View parentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout);
+        parentLayout = findViewById(R.id.parentLayout);
 
         //初始化toobar
         initToolbar();
@@ -39,18 +45,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //初始化侧边栏
         initNavigation();
 
-        initView();
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        initViewPager(viewPager);
 
-        addListeners();
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void addListeners() {
-        parentLayout = findViewById(R.id.parentLayout);
-        mBtnShowSnackBar.setOnClickListener(this);
-    }
-
-    private void initView() {
-        mBtnShowSnackBar = (Button) findViewById(R.id.btn_show_snackBar);
+    private void initViewPager(ViewPager viewPager) {
+        Adapter adapter = new Adapter(getSupportFragmentManager());
+        adapter.addFragment(new CategoryListFragment(), "Category 1");
+        adapter.addFragment(new CategoryListFragment(), "Category 2");
+        adapter.addFragment(new CategoryListFragment(), "Category 3");
+        viewPager.setAdapter(adapter);
     }
 
     @Override
@@ -123,6 +130,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.action_share:
                 Toast.makeText(MainActivity.this, "action_share", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.action_show_snackbar:
+                showSnackbar();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -144,9 +154,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         int id = v.getId();
         switch (id){
-            case R.id.btn_show_snackBar:
-                showSnackbar();
-                break;
             case R.id.snackbar_action:
                 Toast.makeText(this, "click Snackbar action", Toast.LENGTH_SHORT).show();
                 break;
@@ -158,5 +165,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .make(parentLayout, R.string.snackbar_text, Snackbar.LENGTH_LONG)
                 .setAction(R.string.snackbar_action, this)
                 .show(); // Don’t forget to show!
+    }
+
+    static class Adapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragments = new ArrayList<>();
+        private final List<String> mFragmentTitles = new ArrayList<>();
+
+        public Adapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragments.add(fragment);
+            mFragmentTitles.add(title);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitles.get(position);
+        }
     }
 }

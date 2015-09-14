@@ -4,7 +4,7 @@
         <item
             android:id="@+id/nav_home"
             android:checked="true"
-            android:title="CC Talk"/>
+            android:title="Home"/>
         <item
             android:id="@+id/nav_messages"
             android:title="HJ Class"/>
