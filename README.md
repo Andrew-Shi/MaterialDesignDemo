@@ -5,11 +5,15 @@ android studio版本：1.4 Beta2
 gradle ：1.4
 
 项目包含
-*Material Design Theme
-
-*Toolbar
-
-*NavigationDrawer
+1、Material Design Theme
+2、NavigationView，DrawerLayout
+3、Floating labels for edit text
+4、Floating ActionBar
+5、Snackbar
+6、TabLayout
+7、CoordinatorLayout
+8、Toolbar
+9、
 
 *new SlidingTabLayout
 
