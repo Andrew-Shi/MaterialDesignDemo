@@ -4,4 +4,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="action_share">Share</string>
+    <string name="snackbar_text">this is snackbar</string>
+    <string name="snackbar_action">cancel</string>
 </resources>

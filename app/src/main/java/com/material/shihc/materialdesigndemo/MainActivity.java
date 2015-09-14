@@ -1,25 +1,32 @@
 package com.material.shihc.materialdesigndemo;
 
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DrawerLayout mDrawerLayout;
 
     private Toolbar mToolbar;
 
     private ActionBarDrawerToggle mDrawerToggle;
+
     private NavigationView mNavigationView;
+
+    private Button mBtnShowSnackBar;
+
+    private View parentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,19 @@ public class MainActivity extends AppCompatActivity {
 
         //初始化侧边栏
         initNavigation();
+
+        initView();
+
+        addListeners();
+    }
+
+    private void addListeners() {
+        parentLayout = findViewById(R.id.parentLayout);
+        mBtnShowSnackBar.setOnClickListener(this);
+    }
+
+    private void initView() {
+        mBtnShowSnackBar = (Button) findViewById(R.id.btn_show_snackBar);
     }
 
     @Override
@@ -118,5 +138,25 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id){
+            case R.id.btn_show_snackBar:
+                showSnackbar();
+                break;
+            case R.id.snackbar_action:
+                Toast.makeText(this, "click Snackbar action", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    private void showSnackbar() {
+        Snackbar
+                .make(parentLayout, R.string.snackbar_text, Snackbar.LENGTH_LONG)
+                .setAction(R.string.snackbar_action, this)
+                .show(); // Don’t forget to show!
     }
 }
