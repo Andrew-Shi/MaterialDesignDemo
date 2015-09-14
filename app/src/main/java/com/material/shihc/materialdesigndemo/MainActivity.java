@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
 
     private ActionBarDrawerToggle mDrawerToggle;
+    private NavigationView mNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,18 +65,16 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nv_main_navigation);
-        if (navigationView != null) {
-            navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(MenuItem menuItem) {
-                    //切换相应 Fragment 等操作
-                    menuItem.setChecked(true);
-                    mDrawerLayout.closeDrawers();
-                    return false;
-                }
-            });
-        }
+        mNavigationView = (NavigationView) findViewById(R.id.nv_main_navigation);
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                //切换相应 Fragment 等操作
+                menuItem.setChecked(true);
+                mDrawerLayout.closeDrawer(mNavigationView);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -106,5 +107,16 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            if (mDrawerLayout.isDrawerOpen(mNavigationView)){
+                mDrawerLayout.closeDrawer(mNavigationView);
+                return true;
+            }
+        }
+        return super.onKeyUp(keyCode, event);
     }
 }
