@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter.addFragment(new CategoryListFragment(), "Category 1");
         adapter.addFragment(new CategoryListFragment(), "Category 2");
         adapter.addFragment(new CategoryListFragment(), "Category 3");
+        adapter.addFragment(new ScrollFragment(), "Category 4");
         viewPager.setAdapter(adapter);
     }
 

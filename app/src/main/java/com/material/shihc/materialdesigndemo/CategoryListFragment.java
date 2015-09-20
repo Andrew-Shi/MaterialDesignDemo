@@ -52,7 +52,7 @@ public class CategoryListFragment extends Fragment {
     private void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter(getActivity(),
-                getRandomSublist(Category.sCategoryStrings, 30)));
+                getRandomSublist(Category.sCategoryStrings, 3)));
     }
 
     private List<String> getRandomSublist(String[] array, int amount) {
